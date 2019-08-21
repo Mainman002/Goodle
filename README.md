@@ -1,7 +1,7 @@
 # Goodle
 Godot pixel painting app
 
-You'll need Godot 3.1.1-Stable to run this project.
+You'll need Godot 3.1.1-Stable to run this project, or you can download the exported App Images in the Releases section here -> https://github.com/Mainman002/Goodle/releases
 
 [ Finished Features ]
 -
