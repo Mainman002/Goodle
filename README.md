@@ -10,6 +10,14 @@ You'll need Godot 3.1.1-Stable to run this project, or you can download the expo
 
 [X] Exporting your image to a png file with transparency (Thank you Alphin Albukhari)
 
+[ Dev Credits ]
+-
+Made by (Johnathan Mueller) of (TripleM Games)
+_______________Contributers______________________
+Screenshot Transparency Fix: (Alphin Albukhari)
+Draw Grid Script: (Airvikar)
+Possible Canvas Optimization: (Overloaded Orama)
+
 ![alt text](https://github.com/Mainman002/Goodle/blob/master/SnapShots/1.png)
 
 ![alt text](https://github.com/Mainman002/Goodle/blob/master/SnapShots/2.png)
