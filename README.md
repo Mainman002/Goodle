@@ -12,10 +12,15 @@ You'll need Godot 3.1.1-Stable to run this project, or you can download the expo
 
 [ Dev Credits ]
 -
-Made by (Johnathan Mueller) of (TripleM Games)
-_______________Contributers______________________
+ Made by (Johnathan Mueller) of (TripleM Games) 
+
+[ Contributers ]
+-
+
 Screenshot Transparency Fix: (Alphin Albukhari)
+
 Draw Grid Script: (Airvikar)
+
 Possible Canvas Optimization: (Overloaded Orama)
 
 ![alt text](https://github.com/Mainman002/Goodle/blob/master/SnapShots/1.png)
