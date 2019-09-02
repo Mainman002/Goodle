@@ -444,6 +444,8 @@ script = ExtResource( 19 )
 VirtualGrid = NodePath("../../CanvasVB/CanvasOrigin/VirtualGrid")
 
 [node name="GridAmount" type="TextureButton" parent="ToolsVB/Tools2HB"]
+editor/display_folded = true
+self_modulate = Color( 1, 1, 1, 0 )
 margin_left = 28.0
 margin_right = 48.0
 margin_bottom = 20.0
@@ -454,6 +456,15 @@ texture_normal = ExtResource( 17 )
 texture_pressed = ExtResource( 18 )
 expand = true
 script = ExtResource( 20 )
+
+[node name="Label" type="Label" parent="ToolsVB/Tools2HB/GridAmount"]
+margin_right = 16.0
+margin_bottom = 14.0
+rect_min_size = Vector2( 20, 20 )
+custom_fonts/font = ExtResource( 2 )
+text = "8"
+align = 1
+valign = 1
 
 [node name="HSeparator" type="HSeparator" parent="ToolsVB/Tools2HB"]
 self_modulate = Color( 1, 1, 1, 0 )
@@ -503,6 +514,7 @@ current_path = "/run/media/mainman002/3TBp2/3TB Main Files/Godot Projects/Godot 
 [node name="CursorCenter" type="Area2D" parent="." groups=[
 "CursorCenter",
 ]]
+editor/display_folded = true
 position = Vector2( 251, 31 )
 collision_layer = 16
 collision_mask = 8
