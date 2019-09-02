@@ -1,0 +1,948 @@
+[gd_scene load_steps=32 format=2]
+
+[ext_resource path="res://Assets/Scripts/Globals/FunctionController.gd" type="Script" id=1]
+[ext_resource path="res://Assets/Fonts/joystix/Joysticks_DynamicFont1.tres" type="DynamicFont" id=2]
+[ext_resource path="res://Assets/Scripts/Buttons/ShowPanel1.gd" type="Script" id=3]
+[ext_resource path="res://Assets/Images/UI/Buttons/pencil1_normal.png" type="Texture" id=4]
+[ext_resource path="res://Assets/Images/UI/Buttons/pencil1_pressed.png" type="Texture" id=5]
+[ext_resource path="res://Assets/Scripts/Buttons/ToolChangeBTN.gd" type="Script" id=6]
+[ext_resource path="res://Assets/Images/UI/Buttons/eraser1_normal.png" type="Texture" id=7]
+[ext_resource path="res://Assets/Images/UI/Buttons/eraser1_pressed.png" type="Texture" id=8]
+[ext_resource path="res://Assets/Images/UI/Buttons/picker1_normal.png" type="Texture" id=9]
+[ext_resource path="res://Assets/Images/UI/Buttons/picker1_pressed.png" type="Texture" id=10]
+[ext_resource path="res://Assets/Scripts/Buttons/ColorEraseBTN.gd" type="Script" id=11]
+[ext_resource path="res://Assets/Scripts/Buttons/ColorSwap1.gd" type="Script" id=12]
+[ext_resource path="res://Assets/Images/UI/transparentBG1.png" type="Texture" id=13]
+[ext_resource path="res://icon.png" type="Texture" id=14]
+[ext_resource path="res://Assets/Scripts/Pixels/PixelShaderCanvas.gd" type="Script" id=15]
+[ext_resource path="res://Assets/Scripts/Pixels/GridSnapDraw1.gd" type="Script" id=16]
+[ext_resource path="res://Assets/Images/UI/Buttons/gridToggle1_normal.png" type="Texture" id=17]
+[ext_resource path="res://Assets/Images/UI/Buttons/gridToggle1_pressed.png" type="Texture" id=18]
+[ext_resource path="res://Assets/Scripts/Buttons/visibilityToggleBTN.gd" type="Script" id=19]
+[ext_resource path="res://Assets/Scripts/Buttons/GridAmount1.gd" type="Script" id=20]
+[ext_resource path="res://Assets/Images/UI/grid1.png" type="Texture" id=21]
+[ext_resource path="res://Assets/Scripts/Brushes/Cursor1.gd" type="Script" id=22]
+[ext_resource path="res://Assets/Images/UI/MouseCursors/MC1_normal.png" type="Texture" id=23]
+[ext_resource path="res://Assets/Images/UI/MouseCursors/MC1_colorMask.png" type="Texture" id=24]
+[ext_resource path="res://Assets/Scripts/Buttons/SaveImage.gd" type="Script" id=25]
+[ext_resource path="res://Assets/Scripts/Buttons/PanelClose1.gd" type="Script" id=26]
+[ext_resource path="res://Assets/Scripts/Buttons/SettingsPanelGridColor1BTN.gd" type="Script" id=27]
+
+[sub_resource type="RectangleShape2D" id=1]
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 128, 128 )
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 2, 2 )
+
+[sub_resource type="CircleShape2D" id=3]
+radius = 5.0
+
+[node name="MainMenu" type="Node2D"]
+
+[node name="FunctionController" type="Node" parent="."]
+script = ExtResource( 1 )
+toolLabel = NodePath("../ToolsVB/Tools2HB/ToolLabel")
+colorPicker = NodePath("../SidePanelVB/UISC/UIVB/ColorPicker")
+currentColor = NodePath("../ToolsVB/Tools2HB/CurrentColor")
+selectedColor1 = NodePath("../ToolsVB/ToolsHB/C1")
+selectedColor2 = NodePath("../ToolsVB/ToolsHB/C2")
+GridColorSetting = NodePath("../SettingsPanel/SettingsVB/SettingsSC/SettingsVB/GridSettings/ColorPickerBtn")
+FPSLabel = NodePath("../SidePanelVB/HeaderHB/FPSLabel")
+FPSCB = NodePath("../SettingsPanel/SettingsVB/SettingsSC/SettingsVB/FPS/FPSDebugCB")
+GridCont = NodePath("../ToolsVB/CanvasVB/CanvasOrigin/GC")
+VirtualGrid = NodePath("../ToolsVB/CanvasVB/CanvasOrigin/VirtualGrid")
+CursorCenterSnappingBTN = NodePath("../SettingsPanel/SettingsVB/SettingsSC/SettingsVB/CursorSnapping/CursorSnappingBTN")
+
+[node name="BG" type="ColorRect" parent="."]
+margin_left = -9.0
+margin_top = -7.0
+margin_right = 516.0
+margin_bottom = 323.0
+color = Color( 0.172549, 0.172549, 0.243137, 1 )
+
+[node name="MainCam" type="Camera2D" parent="."]
+anchor_mode = 0
+current = true
+zoom = Vector2( 1, 1.25 )
+
+[node name="SidePanelVB" type="VBoxContainer" parent="."]
+editor/display_folded = true
+margin_right = 325.0
+margin_bottom = 423.0
+rect_min_size = Vector2( 325, 423 )
+rect_scale = Vector2( 0.75, 0.75 )
+size_flags_horizontal = 0
+
+[node name="HeaderHB" type="HBoxContainer" parent="SidePanelVB"]
+editor/display_folded = true
+margin_right = 318.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 318, 40 )
+size_flags_horizontal = 0
+
+[node name="File" type="Button" parent="SidePanelVB/HeaderHB"]
+margin_right = 44.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 40, 40 )
+custom_fonts/font = ExtResource( 2 )
+action_mode = 0
+text = "File"
+script = ExtResource( 3 )
+PanelNode = NodePath("../../../FilesPanel")
+
+[node name="Settings" type="Button" parent="SidePanelVB/HeaderHB"]
+margin_left = 48.0
+margin_right = 124.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 40, 40 )
+custom_fonts/font = ExtResource( 2 )
+action_mode = 0
+text = "Settings"
+script = ExtResource( 3 )
+PanelNode = NodePath("../../../SettingsPanel")
+
+[node name="HSeparator" type="HSeparator" parent="SidePanelVB/HeaderHB"]
+self_modulate = Color( 1, 1, 1, 0 )
+margin_left = 128.0
+margin_right = 262.0
+margin_bottom = 40.0
+size_flags_horizontal = 3
+
+[node name="FPSLabel" type="Label" parent="SidePanelVB/HeaderHB"]
+visible = false
+margin_left = 213.0
+margin_top = 13.0
+margin_right = 269.0
+margin_bottom = 26.0
+custom_fonts/font = ExtResource( 2 )
+text = "FPS: 30"
+align = 1
+valign = 1
+
+[node name="About" type="Button" parent="SidePanelVB/HeaderHB"]
+margin_left = 266.0
+margin_right = 318.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 40, 40 )
+custom_fonts/font = ExtResource( 2 )
+action_mode = 0
+text = "About"
+script = ExtResource( 3 )
+PanelNode = NodePath("../../../AboutPanel")
+
+[node name="UISC" type="ScrollContainer" parent="SidePanelVB"]
+editor/display_folded = true
+margin_top = 44.0
+margin_right = 318.0
+margin_bottom = 420.8
+rect_min_size = Vector2( 318, 376.8 )
+mouse_filter = 2
+size_flags_horizontal = 0
+scroll_horizontal_enabled = false
+
+[node name="UIVB" type="VBoxContainer" parent="SidePanelVB/UISC"]
+editor/display_folded = true
+margin_right = 290.0
+margin_bottom = 545.0
+
+[node name="HSeparator" type="HSeparator" parent="SidePanelVB/UISC/UIVB"]
+self_modulate = Color( 1, 1, 1, 0 )
+margin_right = 290.0
+margin_bottom = 10.0
+rect_min_size = Vector2( 290, 10 )
+
+[node name="BrushSizeVB" type="VBoxContainer" parent="SidePanelVB/UISC/UIVB"]
+editor/display_folded = true
+margin_top = 14.0
+margin_right = 290.0
+margin_bottom = 51.0
+rect_min_size = Vector2( 20, 20 )
+custom_constants/separation = 8
+
+[node name="SizeHB" type="HBoxContainer" parent="SidePanelVB/UISC/UIVB/BrushSizeVB"]
+editor/display_folded = true
+margin_right = 290.0
+margin_bottom = 13.0
+custom_constants/separation = 8
+
+[node name="Label" type="Label" parent="SidePanelVB/UISC/UIVB/BrushSizeVB/SizeHB"]
+margin_right = 88.0
+margin_bottom = 13.0
+custom_fonts/font = ExtResource( 2 )
+text = "Brush Size:"
+valign = 1
+
+[node name="BrushSizeLabel" type="Label" parent="SidePanelVB/UISC/UIVB/BrushSizeVB/SizeHB"]
+margin_left = 96.0
+margin_right = 104.0
+margin_bottom = 13.0
+custom_fonts/font = ExtResource( 2 )
+text = "4"
+valign = 1
+
+[node name="BrushSizeHS" type="HSlider" parent="SidePanelVB/UISC/UIVB/BrushSizeVB"]
+margin_top = 21.0
+margin_right = 290.0
+margin_bottom = 37.0
+min_value = 1.0
+max_value = 64.0
+value = 4.0
+scrollable = false
+tick_count = 64
+ticks_on_borders = true
+
+[node name="HSeparator2" type="HSeparator" parent="SidePanelVB/UISC/UIVB"]
+self_modulate = Color( 1, 1, 1, 0 )
+margin_top = 55.0
+margin_right = 290.0
+margin_bottom = 65.0
+rect_min_size = Vector2( 290, 10 )
+
+[node name="ColorPicker" type="ColorPicker" parent="SidePanelVB/UISC/UIVB"]
+margin_top = 69.0
+margin_right = 290.0
+margin_bottom = 531.0
+rect_min_size = Vector2( 128, 256 )
+size_flags_vertical = 3
+
+[node name="HSeparator3" type="HSeparator" parent="SidePanelVB/UISC/UIVB"]
+self_modulate = Color( 1, 1, 1, 0 )
+margin_top = 535.0
+margin_right = 290.0
+margin_bottom = 545.0
+rect_min_size = Vector2( 290, 10 )
+
+[node name="ToolsVB" type="VBoxContainer" parent="."]
+editor/display_folded = true
+margin_left = 251.0
+margin_top = 2.0
+margin_right = 507.0
+margin_bottom = 320.0
+rect_min_size = Vector2( 256, 317 )
+size_flags_horizontal = 0
+size_flags_vertical = 0
+custom_constants/separation = 9
+
+[node name="ToolsHB" type="HBoxContainer" parent="ToolsVB"]
+editor/display_folded = true
+margin_right = 256.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 256, 0 )
+size_flags_horizontal = 0
+custom_constants/separation = 8
+
+[node name="Paint" type="TextureButton" parent="ToolsVB/ToolsHB"]
+margin_right = 20.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 20, 20 )
+hint_tooltip = "Tool for painting color"
+action_mode = 0
+texture_normal = ExtResource( 4 )
+texture_pressed = ExtResource( 4 )
+texture_hover = ExtResource( 5 )
+expand = true
+script = ExtResource( 6 )
+toolMode = "paint"
+toolLabel = NodePath("../../Tools2HB/ToolLabel")
+
+[node name="Eraser" type="TextureButton" parent="ToolsVB/ToolsHB"]
+margin_left = 28.0
+margin_right = 48.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 20, 20 )
+hint_tooltip = "Tool for erase painting color"
+action_mode = 0
+texture_normal = ExtResource( 7 )
+texture_pressed = ExtResource( 7 )
+texture_hover = ExtResource( 8 )
+expand = true
+script = ExtResource( 6 )
+toolMode = "erase"
+toolLabel = NodePath("../../Tools2HB/ToolLabel")
+SelectedTool = 2
+
+[node name="Picker" type="TextureButton" parent="ToolsVB/ToolsHB"]
+margin_left = 56.0
+margin_right = 76.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 20, 20 )
+hint_tooltip = "Tool for selecting a color from the canvas"
+action_mode = 0
+texture_normal = ExtResource( 9 )
+texture_pressed = ExtResource( 9 )
+texture_hover = ExtResource( 10 )
+expand = true
+script = ExtResource( 6 )
+toolMode = "picker"
+toolLabel = NodePath("../../Tools2HB/ToolLabel")
+SelectedTool = 1
+
+[node name="ColorEraser" type="TextureButton" parent="ToolsVB/ToolsHB"]
+margin_left = 84.0
+margin_right = 104.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 20, 20 )
+hint_tooltip = "Tool for erasing all same color pixels on the canvas"
+action_mode = 0
+texture_normal = ExtResource( 7 )
+texture_pressed = ExtResource( 7 )
+texture_hover = ExtResource( 8 )
+expand = true
+script = ExtResource( 6 )
+toolMode = "colorErase"
+toolLabel = NodePath("../../Tools2HB/ToolLabel")
+SelectedTool = 3
+
+[node name="ColorErase" type="Button" parent="ToolsVB/ToolsHB"]
+visible = false
+margin_left = 84.0
+margin_right = 163.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 20, 20 )
+action_mode = 0
+text = "ColorErase"
+script = ExtResource( 11 )
+
+[node name="HSeparator" type="HSeparator" parent="ToolsVB/ToolsHB"]
+self_modulate = Color( 1, 1, 1, 0 )
+margin_left = 112.0
+margin_right = 200.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+
+[node name="C1" type="ColorRect" parent="ToolsVB/ToolsHB"]
+editor/display_folded = true
+margin_left = 208.0
+margin_right = 228.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 20, 20 )
+hint_tooltip = "Holds a color that you can swap between by pressing X"
+color = Color( 0, 0, 0, 1 )
+script = ExtResource( 12 )
+currentColor = NodePath("../../Tools2HB/CurrentColor")
+colorPicker = NodePath("../../../SidePanelVB/UISC/UIVB/ColorPicker")
+
+[node name="TB" type="TouchScreenButton" parent="ToolsVB/ToolsHB/C1"]
+show_behind_parent = true
+position = Vector2( 10, 10 )
+shape = SubResource( 1 )
+
+[node name="transparentBG" type="TextureRect" parent="ToolsVB/ToolsHB/C1"]
+show_behind_parent = true
+margin_right = 20.0
+margin_bottom = 20.0
+texture = ExtResource( 13 )
+stretch_mode = 2
+
+[node name="C2" type="ColorRect" parent="ToolsVB/ToolsHB"]
+editor/display_folded = true
+margin_left = 236.0
+margin_right = 256.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 20, 20 )
+hint_tooltip = "Holds a color that you can swap between by pressing X"
+script = ExtResource( 12 )
+colNum = 2
+currentColor = NodePath("../../Tools2HB/CurrentColor")
+colorPicker = NodePath("../../../SidePanelVB/UISC/UIVB/ColorPicker")
+
+[node name="TB" type="TouchScreenButton" parent="ToolsVB/ToolsHB/C2"]
+show_behind_parent = true
+position = Vector2( 10, 10 )
+shape = SubResource( 1 )
+
+[node name="transparentBG" type="TextureRect" parent="ToolsVB/ToolsHB/C2"]
+show_behind_parent = true
+margin_right = 20.0
+margin_bottom = 20.0
+texture = ExtResource( 13 )
+stretch_mode = 2
+
+[node name="CanvasVB" type="VBoxContainer" parent="ToolsVB"]
+editor/display_folded = true
+margin_top = 29.0
+margin_right = 256.0
+margin_bottom = 285.0
+rect_min_size = Vector2( 256, 256 )
+size_flags_horizontal = 0
+
+[node name="CanvasOrigin" type="Position2D" parent="ToolsVB/CanvasVB"]
+editor/display_folded = true
+
+[node name="CanvasBG" type="TextureRect" parent="ToolsVB/CanvasVB/CanvasOrigin"]
+self_modulate = Color( 1, 1, 1, 0.133333 )
+margin_right = 256.0
+margin_bottom = 256.0
+texture = ExtResource( 13 )
+expand = true
+stretch_mode = 2
+
+[node name="PixelShaderCanvas" type="Sprite" parent="ToolsVB/CanvasVB/CanvasOrigin"]
+visible = false
+scale = Vector2( 4, 4 )
+texture = ExtResource( 14 )
+centered = false
+script = ExtResource( 15 )
+
+[node name="GC" type="GridContainer" parent="ToolsVB/CanvasVB/CanvasOrigin"]
+margin_right = 1.0
+margin_bottom = 1.0
+rect_min_size = Vector2( 1, 1 )
+rect_scale = Vector2( 8, 8 )
+custom_constants/vseparation = 0
+custom_constants/hseparation = 0
+columns = 4
+
+[node name="VirtualGrid" type="TextureRect" parent="ToolsVB/CanvasVB/CanvasOrigin"]
+visible = false
+self_modulate = Color( 1, 1, 1, 0.631373 )
+margin_right = 256.0
+margin_bottom = 256.0
+rect_min_size = Vector2( 256, 256 )
+expand = true
+stretch_mode = 2
+script = ExtResource( 16 )
+
+[node name="CanvasCam" type="Camera2D" parent="ToolsVB/CanvasVB/CanvasOrigin"]
+anchor_mode = 0
+zoom = Vector2( 0.5, 1 )
+
+[node name="CanvasArea" type="Area2D" parent="ToolsVB/CanvasVB/CanvasOrigin" groups=[
+"CanvasArea",
+]]
+editor/display_folded = true
+collision_layer = 8
+collision_mask = 2
+
+[node name="CollShape2D" type="CollisionShape2D" parent="ToolsVB/CanvasVB/CanvasOrigin/CanvasArea"]
+position = Vector2( 128, 128 )
+shape = SubResource( 2 )
+
+[node name="Tools2HB" type="HBoxContainer" parent="ToolsVB"]
+editor/display_folded = true
+margin_top = 294.0
+margin_right = 256.0
+margin_bottom = 314.0
+rect_min_size = Vector2( 256, 0 )
+size_flags_horizontal = 0
+custom_constants/separation = 8
+
+[node name="GridToggle" type="TextureButton" parent="ToolsVB/Tools2HB"]
+margin_right = 20.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 20, 20 )
+hint_tooltip = "Toggles the Grid"
+toggle_mode = true
+pressed = true
+action_mode = 0
+texture_normal = ExtResource( 17 )
+texture_pressed = ExtResource( 18 )
+expand = true
+script = ExtResource( 19 )
+VirtualGrid = NodePath("../../CanvasVB/CanvasOrigin/VirtualGrid")
+
+[node name="GridAmount" type="TextureButton" parent="ToolsVB/Tools2HB"]
+margin_left = 28.0
+margin_right = 48.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 20, 20 )
+hint_tooltip = "Cycles through Pixel sizes !Warning! deletes current image pixels"
+action_mode = 0
+texture_normal = ExtResource( 17 )
+texture_pressed = ExtResource( 18 )
+expand = true
+script = ExtResource( 20 )
+
+[node name="HSeparator" type="HSeparator" parent="ToolsVB/Tools2HB"]
+self_modulate = Color( 1, 1, 1, 0 )
+margin_left = 56.0
+margin_right = 164.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+
+[node name="ToolLabel" type="Label" parent="ToolsVB/Tools2HB"]
+margin_left = 172.0
+margin_top = 3.0
+margin_right = 228.0
+margin_bottom = 16.0
+custom_fonts/font = ExtResource( 2 )
+text = "Painter"
+
+[node name="CurrentColor" type="ColorRect" parent="ToolsVB/Tools2HB"]
+editor/display_folded = true
+margin_left = 236.0
+margin_right = 256.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 20, 20 )
+hint_tooltip = "Shows the active color"
+
+[node name="transparentBG" type="TextureRect" parent="ToolsVB/Tools2HB/CurrentColor"]
+show_behind_parent = true
+margin_right = 20.0
+margin_bottom = 20.0
+texture = ExtResource( 13 )
+stretch_mode = 2
+
+[node name="FileDialog" type="FileDialog" parent="."]
+margin_left = 6.0
+margin_top = 27.0
+margin_right = 531.0
+margin_bottom = 357.0
+rect_min_size = Vector2( 128, 128 )
+rect_scale = Vector2( 0.95, 0.86 )
+window_title = "Open a File or Directory"
+mode = 3
+access = 2
+filters = PoolStringArray( "*.png;" )
+current_dir = "/run/media/mainman002/3TBp2/3TB Main Files/Godot Projects/Godot Versions/3_1_release1_1/Projects/Pixel Painter v1/Project Files"
+current_file = "Pixel1"
+current_path = "/run/media/mainman002/3TBp2/3TB Main Files/Godot Projects/Godot Versions/3_1_release1_1/Projects/Pixel Painter v1/Project Files/Pixel1"
+
+[node name="CursorCenter" type="Area2D" parent="." groups=[
+"CursorCenter",
+]]
+position = Vector2( 251, 31 )
+collision_layer = 16
+collision_mask = 8
+
+[node name="Sprite2" type="Sprite" parent="CursorCenter"]
+show_behind_parent = true
+scale = Vector2( 2, 2 )
+texture = ExtResource( 21 )
+offset = Vector2( -4, -4 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CursorCenter"]
+shape = SubResource( 4 )
+
+[node name="Cursor" type="Area2D" parent="." groups=[
+"Cursor",
+]]
+editor/display_folded = true
+position = Vector2( 251, 31 )
+collision_layer = 2
+collision_mask = 4
+script = ExtResource( 22 )
+BrushSizeLabel = NodePath("../SidePanelVB/UISC/UIVB/BrushSizeVB/SizeHB/BrushSizeLabel")
+BrushSizeSlider = NodePath("../SidePanelVB/UISC/UIVB/BrushSizeVB/BrushSizeHS")
+ColorPickerNode = NodePath("../SidePanelVB/UISC/UIVB/ColorPicker")
+CurrentColorNode = NodePath("../ToolsVB/Tools2HB/CurrentColor")
+
+[node name="Sprite" type="Sprite" parent="Cursor"]
+texture = ExtResource( 23 )
+
+[node name="ColorMask" type="Sprite" parent="Cursor"]
+texture = ExtResource( 24 )
+
+[node name="CShape2D" type="CollisionShape2D" parent="Cursor"]
+show_behind_parent = true
+shape = SubResource( 3 )
+
+[node name="FilesPanel" type="PanelContainer" parent="."]
+editor/display_folded = true
+visible = false
+margin_left = -1.0
+margin_top = -1.0
+margin_right = 346.0
+margin_bottom = 399.0
+rect_scale = Vector2( 0.8, 0.8 )
+
+[node name="FilesVB" type="VBoxContainer" parent="FilesPanel"]
+editor/display_folded = true
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 340.0
+margin_bottom = 393.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="HeaderVB" type="VBoxContainer" parent="FilesPanel/FilesVB"]
+editor/display_folded = true
+margin_right = 333.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 20, 20 )
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="FilesPanel/FilesVB/HeaderVB"]
+margin_right = 333.0
+margin_bottom = 13.0
+custom_fonts/font = ExtResource( 2 )
+text = "File Menu"
+align = 1
+valign = 1
+
+[node name="HSeparator" type="HSeparator" parent="FilesPanel/FilesVB"]
+margin_top = 24.0
+margin_right = 333.0
+margin_bottom = 34.0
+rect_min_size = Vector2( 0, 10 )
+size_flags_horizontal = 3
+
+[node name="FilesSC" type="ScrollContainer" parent="FilesPanel/FilesVB"]
+editor/display_folded = true
+margin_top = 38.0
+margin_right = 333.0
+margin_bottom = 349.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="FilesVB" type="VBoxContainer" parent="FilesPanel/FilesVB/FilesSC"]
+editor/display_folded = true
+margin_right = 333.0
+margin_bottom = 311.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="SaveVB" type="VBoxContainer" parent="FilesPanel/FilesVB/FilesSC/FilesVB"]
+editor/display_folded = true
+margin_right = 333.0
+margin_bottom = 50.0
+custom_constants/separation = 10
+
+[node name="SaveWidthHB" type="HBoxContainer" parent="FilesPanel/FilesVB/FilesSC/FilesVB/SaveVB"]
+editor/display_folded = true
+margin_right = 333.0
+margin_bottom = 20.0
+custom_constants/separation = 8
+
+[node name="Resolution" type="Label" parent="FilesPanel/FilesVB/FilesSC/FilesVB/SaveVB/SaveWidthHB"]
+margin_right = 88.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 85, 20 )
+custom_fonts/font = ExtResource( 2 )
+text = "Resolution:"
+valign = 1
+
+[node name="X" type="Label" parent="FilesPanel/FilesVB/FilesSC/FilesVB/SaveVB/SaveWidthHB"]
+margin_left = 96.0
+margin_right = 116.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 20, 20 )
+custom_fonts/font = ExtResource( 2 )
+text = "x"
+align = 2
+valign = 1
+
+[node name="WidthTE" type="TextEdit" parent="FilesPanel/FilesVB/FilesSC/FilesVB/SaveVB/SaveWidthHB"]
+margin_left = 124.0
+margin_right = 333.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 36, 20 )
+size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 2 )
+text = "64"
+
+[node name="SaveHeightHB" type="HBoxContainer" parent="FilesPanel/FilesVB/FilesSC/FilesVB/SaveVB"]
+editor/display_folded = true
+margin_top = 30.0
+margin_right = 333.0
+margin_bottom = 50.0
+custom_constants/separation = 8
+
+[node name="SaveImage" type="Button" parent="FilesPanel/FilesVB/FilesSC/FilesVB/SaveVB/SaveHeightHB"]
+margin_right = 92.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 85, 20 )
+size_flags_horizontal = 0
+custom_fonts/font = ExtResource( 2 )
+action_mode = 0
+text = "Save Image"
+align = 0
+script = ExtResource( 25 )
+mainCam = NodePath("../../../../../../../MainCam")
+canvasCam = NodePath("../../../../../../../ToolsVB/CanvasVB/CanvasOrigin/CanvasCam")
+fileDialog = NodePath("../../../../../../../FileDialog")
+bgColor = NodePath("../../../../../../../BG")
+xWidth = NodePath("../../SaveWidthHB/WidthTE")
+yHeight = NodePath("../HeightTE")
+CursorSprite = NodePath("../../../../../../../Cursor")
+VirtualGrid = NodePath("../../../../../../../ToolsVB/CanvasVB/CanvasOrigin/VirtualGrid")
+
+[node name="Y" type="Label" parent="FilesPanel/FilesVB/FilesSC/FilesVB/SaveVB/SaveHeightHB"]
+margin_left = 100.0
+margin_right = 120.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 20, 20 )
+custom_fonts/font = ExtResource( 2 )
+text = "y"
+align = 2
+valign = 1
+
+[node name="HeightTE" type="TextEdit" parent="FilesPanel/FilesVB/FilesSC/FilesVB/SaveVB/SaveHeightHB"]
+margin_left = 128.0
+margin_right = 333.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 35, 20 )
+size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 2 )
+text = "64"
+
+[node name="HSeparator2" type="HSeparator" parent="FilesPanel/FilesVB"]
+margin_top = 353.0
+margin_right = 333.0
+margin_bottom = 363.0
+rect_min_size = Vector2( 0, 10 )
+size_flags_horizontal = 3
+
+[node name="Close" type="Button" parent="FilesPanel/FilesVB"]
+margin_top = 367.0
+margin_right = 333.0
+margin_bottom = 386.0
+custom_fonts/font = ExtResource( 2 )
+text = "Close"
+script = ExtResource( 26 )
+
+[node name="SettingsPanel" type="PanelContainer" parent="."]
+editor/display_folded = true
+visible = false
+margin_left = -1.0
+margin_top = -1.0
+margin_right = 347.0
+margin_bottom = 398.0
+rect_scale = Vector2( 0.8, 0.8 )
+
+[node name="SettingsVB" type="VBoxContainer" parent="SettingsPanel"]
+editor/display_folded = true
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 341.0
+margin_bottom = 392.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="HeaderVB" type="VBoxContainer" parent="SettingsPanel/SettingsVB"]
+editor/display_folded = true
+margin_right = 334.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 20, 20 )
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="SettingsPanel/SettingsVB/HeaderVB"]
+margin_right = 334.0
+margin_bottom = 13.0
+custom_fonts/font = ExtResource( 2 )
+text = "Settings Menu"
+align = 1
+valign = 1
+
+[node name="HSeparator" type="HSeparator" parent="SettingsPanel/SettingsVB"]
+margin_top = 24.0
+margin_right = 334.0
+margin_bottom = 34.0
+rect_min_size = Vector2( 0, 10 )
+size_flags_horizontal = 3
+
+[node name="SettingsSC" type="ScrollContainer" parent="SettingsPanel/SettingsVB"]
+editor/display_folded = true
+margin_top = 38.0
+margin_right = 334.0
+margin_bottom = 348.0
+rect_min_size = Vector2( 64, 64 )
+mouse_filter = 2
+size_flags_horizontal = 5
+size_flags_vertical = 3
+scroll_horizontal_enabled = false
+
+[node name="SettingsVB" type="VBoxContainer" parent="SettingsPanel/SettingsVB/SettingsSC"]
+margin_right = 334.0
+margin_bottom = 310.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 10
+
+[node name="FPS" type="HBoxContainer" parent="SettingsPanel/SettingsVB/SettingsSC/SettingsVB"]
+editor/display_folded = true
+margin_right = 334.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+custom_constants/separation = 10
+
+[node name="Label" type="Label" parent="SettingsPanel/SettingsVB/SettingsSC/SettingsVB/FPS"]
+margin_top = 5.0
+margin_right = 88.0
+margin_bottom = 18.0
+custom_fonts/font = ExtResource( 2 )
+text = "FPS Debug: "
+
+[node name="FPSDebugCB" type="CheckBox" parent="SettingsPanel/SettingsVB/SettingsSC/SettingsVB/FPS"]
+margin_left = 98.0
+margin_right = 122.0
+margin_bottom = 24.0
+custom_fonts/font = ExtResource( 2 )
+
+[node name="CursorSnapping" type="HBoxContainer" parent="SettingsPanel/SettingsVB/SettingsSC/SettingsVB"]
+margin_top = 34.0
+margin_right = 334.0
+margin_bottom = 58.0
+size_flags_horizontal = 3
+custom_constants/separation = 10
+
+[node name="Label" type="Label" parent="SettingsPanel/SettingsVB/SettingsSC/SettingsVB/CursorSnapping"]
+margin_top = 5.0
+margin_right = 192.0
+margin_bottom = 18.0
+custom_fonts/font = ExtResource( 2 )
+text = "Cursor Center Snapping: "
+
+[node name="CursorSnappingBTN" type="CheckBox" parent="SettingsPanel/SettingsVB/SettingsSC/SettingsVB/CursorSnapping"]
+margin_left = 202.0
+margin_right = 226.0
+margin_bottom = 24.0
+custom_fonts/font = ExtResource( 2 )
+
+[node name="GridSettings" type="HBoxContainer" parent="SettingsPanel/SettingsVB/SettingsSC/SettingsVB"]
+editor/display_folded = true
+margin_top = 68.0
+margin_right = 334.0
+margin_bottom = 88.0
+size_flags_horizontal = 3
+custom_constants/separation = 10
+
+[node name="Label" type="Label" parent="SettingsPanel/SettingsVB/SettingsSC/SettingsVB/GridSettings"]
+margin_top = 3.0
+margin_right = 96.0
+margin_bottom = 16.0
+custom_fonts/font = ExtResource( 2 )
+text = "Grid Color: "
+
+[node name="ColorPickerBtn" type="ColorPickerButton" parent="SettingsPanel/SettingsVB/SettingsSC/SettingsVB/GridSettings"]
+visible = false
+margin_left = 82.0
+margin_right = 117.0
+margin_bottom = 28.0
+rect_min_size = Vector2( 35, 28 )
+
+[node name="GridColorShowBTN" type="ColorRect" parent="SettingsPanel/SettingsVB/SettingsSC/SettingsVB/GridSettings"]
+editor/display_folded = true
+margin_left = 106.0
+margin_right = 126.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 20, 20 )
+hint_tooltip = "Holds a color that you can swap between by pressing X"
+script = ExtResource( 27 )
+_ColorPicker = NodePath("../../ColoPickerVB/ColorPicker")
+
+[node name="TB" type="TouchScreenButton" parent="SettingsPanel/SettingsVB/SettingsSC/SettingsVB/GridSettings/GridColorShowBTN"]
+show_behind_parent = true
+position = Vector2( 10, 10 )
+shape = SubResource( 1 )
+
+[node name="transparentBG" type="TextureRect" parent="SettingsPanel/SettingsVB/SettingsSC/SettingsVB/GridSettings/GridColorShowBTN"]
+show_behind_parent = true
+margin_right = 20.0
+margin_bottom = 20.0
+texture = ExtResource( 13 )
+stretch_mode = 2
+
+[node name="ColoPickerVB" type="VBoxContainer" parent="SettingsPanel/SettingsVB/SettingsSC/SettingsVB"]
+editor/display_folded = true
+margin_top = 98.0
+margin_right = 334.0
+margin_bottom = 98.0
+
+[node name="ColorPicker" type="ColorPicker" parent="SettingsPanel/SettingsVB/SettingsSC/SettingsVB/ColoPickerVB"]
+visible = false
+margin_left = 4.0
+margin_top = 4.0
+margin_right = 4.0
+margin_bottom = 4.0
+size_flags_horizontal = 5
+size_flags_vertical = 5
+
+[node name="HSeparator2" type="HSeparator" parent="SettingsPanel/SettingsVB"]
+margin_top = 352.0
+margin_right = 334.0
+margin_bottom = 362.0
+rect_min_size = Vector2( 0, 10 )
+size_flags_horizontal = 3
+
+[node name="Close" type="Button" parent="SettingsPanel/SettingsVB"]
+margin_top = 366.0
+margin_right = 334.0
+margin_bottom = 385.0
+custom_fonts/font = ExtResource( 2 )
+text = "Close"
+script = ExtResource( 26 )
+
+[node name="AboutPanel" type="PanelContainer" parent="."]
+editor/display_folded = true
+visible = false
+margin_left = -1.0
+margin_top = -1.0
+margin_right = 446.0
+margin_bottom = 400.0
+rect_scale = Vector2( 0.8, 0.8 )
+
+[node name="AboutVB" type="VBoxContainer" parent="AboutPanel"]
+editor/display_folded = true
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 440.0
+margin_bottom = 394.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="HeaderVB" type="VBoxContainer" parent="AboutPanel/AboutVB"]
+editor/display_folded = true
+margin_right = 433.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 20, 20 )
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="AboutPanel/AboutVB/HeaderVB"]
+margin_right = 433.0
+margin_bottom = 13.0
+custom_fonts/font = ExtResource( 2 )
+text = "About Menu"
+align = 1
+valign = 1
+
+[node name="HSeparator" type="HSeparator" parent="AboutPanel/AboutVB"]
+margin_top = 24.0
+margin_right = 433.0
+margin_bottom = 34.0
+rect_min_size = Vector2( 0, 10 )
+size_flags_horizontal = 3
+
+[node name="AboutSC" type="ScrollContainer" parent="AboutPanel/AboutVB"]
+margin_top = 38.0
+margin_right = 433.0
+margin_bottom = 166.0
+rect_min_size = Vector2( 128, 128 )
+
+[node name="RichTextLabel" type="RichTextLabel" parent="AboutPanel/AboutVB/AboutSC"]
+margin_right = 433.0
+margin_bottom = 128.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_fonts/normal_font = ExtResource( 2 )
+text = "Goodle 
+Made by (Johnathan Mueller) of (TripleM Games)
+_______________Contributers______________________
+Screenshot Transparency Fix: (Alphin Albukhari)
+Grid Script: (Airvikar)
+Possible Canvas Optimization: (Overloaded Orama)"
+
+[node name="HSeparator2" type="HSeparator" parent="AboutPanel/AboutVB"]
+self_modulate = Color( 1, 1, 1, 0 )
+margin_top = 170.0
+margin_right = 433.0
+margin_bottom = 364.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Close" type="Button" parent="AboutPanel/AboutVB"]
+margin_top = 368.0
+margin_right = 433.0
+margin_bottom = 387.0
+custom_fonts/font = ExtResource( 2 )
+text = "Close"
+script = ExtResource( 26 )
+
+[node name="forground" type="ColorRect" parent="."]
+margin_left = 507.0
+margin_top = -11.0
+margin_right = 517.0
+margin_bottom = 324.0
+color = Color( 0.172549, 0.172549, 0.243137, 1 )
