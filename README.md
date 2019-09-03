@@ -23,8 +23,8 @@ Draw Grid Script: (Airvikar)
 
 Possible Canvas Optimization: (Overloaded Orama)
 
-![alt text](https://github.com/Mainman002/Goodle/blob/master/SnapShots/1.png)
+![alt text](https://raw.githubusercontent.com/Mainman002/Goodle/Gui_v2/SnapShots/1.png)
 
-![alt text](https://github.com/Mainman002/Goodle/blob/master/SnapShots/2.png)
+![alt text](https://raw.githubusercontent.com/Mainman002/Goodle/Gui_v2/SnapShots/2.png)
 
-![alt text](https://github.com/Mainman002/Goodle/blob/master/SnapShots/3.png)
+![alt text](https://raw.githubusercontent.com/Mainman002/Goodle/Gui_v2/SnapShots/3.png)
