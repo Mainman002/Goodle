@@ -4,11 +4,15 @@ export (NodePath) var mainCam
 export (NodePath) var canvasCam
 export (NodePath) var fileDialog
 export (NodePath) var bgColor
+export (NodePath) var transparentBGColor
 export (NodePath) var xWidth
 export (NodePath) var yHeight
 export (NodePath) var CursorSprite
-export (NodePath) var Grid
+#export (NodePath) var Grid
 export (NodePath) var VirtualGrid
+export (NodePath) var TopBar
+export (NodePath) var ToolsBar
+export (NodePath) var SideBar
 
 var filePath = "user://"
 var fileName
@@ -38,6 +42,10 @@ func _FileBroweser():
 
 func _screenTakeImage():
 	get_node(bgColor).visible = false
+	get_node(transparentBGColor).visible = false
+	get_node(TopBar).visible = false
+	get_node(ToolsBar).visible = false
+	get_node(SideBar).visible = false
 	get_node("/root/MainMenu/FilesPanel").visible = false
 	if FuncManager.grid_showing == true:
 #		FuncManager._grid_Update()
@@ -74,6 +82,10 @@ func _screenReset():
 	OS.window_size.x = windowSizeX
 	OS.window_size.y = windowSizeY
 	get_node(bgColor).visible = true
+	get_node(transparentBGColor).visible = true
+	get_node(TopBar).visible = true
+	get_node(ToolsBar).visible = true
+	get_node(SideBar).visible = true
 	get_node("/root/MainMenu/FilesPanel").visible = true
 	if FuncManager.grid_showing == true:
 #		FuncManager._grid_Update()

@@ -1,6 +1,6 @@
 extends TextureButton
 
-export (String) var toolMode
+#export (String) var toolMode
 export (NodePath) var toolLabel
 export (int) var SelectedTool = 0
 #export (NodePath) var Cursor

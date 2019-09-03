@@ -24,7 +24,7 @@ func _ready():
 	get_node("../CursorCenter").connect("area_exited", self, "CanvasExited")
 	connect("area_entered", self, "PixelEntered")
 	connect("area_exited", self, "PixelExited")
-	get_node(BrushSizeSlider).connect("value_changed", self, "_toolChanged")
+#	get_node(BrushSizeSlider).connect("value_changed", self, "_toolChanged")
 	get_node(ColorPickerNode).color = FuncManager.activeColor
 	FuncManager.Cursor = get_path()
 	FuncManager.CursorColorMask = get_path()
@@ -79,7 +79,7 @@ func _set_size(_size, _dec, _pickSize):
 		$CShape2D.shape.radius = _size
 		$Sprite.scale = Vector2(_dec,_dec)
 		$ColorMask.scale = Vector2(_pickSize,_pickSize)
-		get_node(BrushSizeSlider).value = _size
+#		get_node(BrushSizeSlider).value = _size
 		FuncManager._brush_size_Update(_size, _dec, _pickSize)
 
 func colorMaskUpdate(_color):

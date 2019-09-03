@@ -3,7 +3,7 @@ extends Node
 #export (NodePath) var Cursor
 export (NodePath) var toolLabel
 export (NodePath) var colorPicker
-export (NodePath) var currentColor
+#export (NodePath) var currentColor
 export (NodePath) var selectedColor1
 export (NodePath) var selectedColor2
 export (NodePath) var GridColorSetting
@@ -48,15 +48,23 @@ onready var GridTotal = _GridTotals[0]
 onready var cell_size = _CellSizes[0]
 
 var coord = Vector2(0,0)
-onready var grid_size = Vector2(get_node("/root/MainMenu").get_viewport_rect().size.x, get_node("/root/MainMenu").get_viewport_rect().size.y)
+onready var grid_size = Vector2(256, 256)
 
 const pixelObj = preload("res://Assets/Instances/Pixels/P1.tscn")
 
+func picker_Pressed():
+	panelOpen = true
+
+func picker_Closed():
+	panelOpen = false
+
 func _ready():
+	get_node(colorPicker).connect("pressed", self, "picker_Pressed")
+	get_node(colorPicker).connect("popup_closed", self, "picker_Closed")
 	get_node(colorPicker).connect("color_changed", self, "picker_Changed")
 	get_node(GridColorSetting).connect("color_changed", self, "grid_col_changed")
 	get_node(FPSCB).connect("toggled", self, "_FPSToggle")
-	get_node(currentColor).color = activeColor
+#	get_node(currentColor).color = activeColor
 	get_node(GridColorSetting).color = gridColor
 	get_node(GridCont).rect_scale = Vector2(GridScale, GridScale)
 	get_node(GridCont).columns = GridColumns
@@ -89,13 +97,13 @@ func _process(delta):
 			if activeColor != col2 and selectedColor == 1:
 				activeColor = col2
 				get_node(colorPicker).color = col2
-				get_node(currentColor).color = col2
+#				get_node(currentColor).color = col2
 				get_node(CursorColorMask).colorMaskUpdate(col2)
 				selectedColor = 2
 			elif activeColor != col1 and selectedColor == 2:
 				activeColor = col1
 				get_node(colorPicker).color = col1
-				get_node(currentColor).color = col1
+#				get_node(currentColor).color = col1
 				get_node(CursorColorMask).colorMaskUpdate(col1)
 				selectedColor = 1
 			
@@ -141,7 +149,7 @@ func picker_Changed(_color):
 			get_node(selectedColor2).color = _color
 		
 		get_node(colorPicker).color = _color
-		get_node(currentColor).color = _color
+#		get_node(currentColor).color = _color
 
 #func gridColorChange(_color):
 #	get_node(Grid).self_modulate = _color
