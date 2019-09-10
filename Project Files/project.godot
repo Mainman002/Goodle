@@ -8,14 +8,9 @@
 
 config_version=4
 
-_global_script_classes=[ {
-"base": "Node2D",
-"class": "Canvas",
-"language": "GDScript",
-"path": "res://Assets/Scripts/Pixelorma/Scripts/Canvas.gd"
-} ]
+_global_script_classes=[  ]
 _global_script_class_icons={
-"Canvas": ""
+
 }
 
 [application]
@@ -25,16 +20,18 @@ run/main_scene="res://Assets/Scenes/MainMenu.tscn"
 run/low_processor_mode=true
 config/icon="res://icon.png"
 
+[autoload]
+
+Events="*res://Assets/Scripts/SignalTesting/SignalSingleton1.gd"
+
 [debug]
 
 settings/fps/force_fps=30
 
 [display]
 
-window/size/width=512
-window/size/height=256
-window/size/test_width=960
-window/size/test_height=540
+window/size/test_width=1024
+window/size/test_height=512
 window/stretch/mode="2d"
 
 [importer_defaults]
@@ -128,7 +125,11 @@ pointing/emulate_touch_from_mouse=true
 
 [layer_names]
 
+2d_render/layer_1="MainWindow2D"
+3d_render/layer_1="MainWindow3D"
+2d_render/layer_2="Minimap2D"
 2d_physics/layer_2="Cursor"
+3d_render/layer_2="Minimap3D"
 2d_physics/layer_3="Pixel"
 2d_physics/layer_4="Canvas"
 2d_physics/layer_5="CursorCenter"

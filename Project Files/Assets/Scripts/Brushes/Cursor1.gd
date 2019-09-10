@@ -24,7 +24,8 @@ func _ready():
 	get_node("../CursorCenter").connect("area_exited", self, "CanvasExited")
 	connect("area_entered", self, "PixelEntered")
 	connect("area_exited", self, "PixelExited")
-	get_node(BrushSizeSlider).connect("value_changed", self, "_toolChanged")
+	get_node(Events.nodes["cursorSizeSlider"].Path).connect("value_changed", self, "_toolChanged")
+#	get_node(BrushSizeSlider).connect("value_changed", self, "_toolChanged")
 	get_node(ColorPickerNode).color = FuncManager.activeColor
 	FuncManager.Cursor = get_path()
 	FuncManager.CursorColorMask = get_path()
@@ -48,13 +49,13 @@ func _input(event):
 			brushSize -= 1
 			_set_size(brushSize, brushSize/4, brushSize/4)
 	
-		if Input.is_action_just_pressed("colorPick") or FuncManager.selectedTool == "Color Eraser":
-			_set_size(2, .2, brushPickerSize)
+		if Input.is_action_pressed("colorPick") or FuncManager.selectedTool == "Color Eraser":
+			_set_size(null, .2, brushPickerSize)
 		else:
 			_set_size(brushSize, brushSize/4, brushSize/4)
 		
 			if FuncManager.selectedTool == "Picker":
-				_set_size(2, .2, brushPickerSize)
+				_set_size(null, .2, brushPickerSize)
 			elif FuncManager.selectedTool == "Painter" or FuncManager.selectedTool == "Eraser":
 				_set_size(brushSize, brushSize/4, brushSize/4)
 
@@ -68,18 +69,28 @@ func _physics_process(delta):
 
 func _toolChanged(value):
 	if FuncManager.panelOpen == false:
-		get_node(BrushSizeLabel).text = str(value)
+#		get_node(BrushSizeLabel).text = str(value)
+		if not Input.is_action_pressed("colorPick") and not FuncManager.selectedTool == "Picker" and not FuncManager.selectedTool == "Color Eraser":
+			brushSize = get_node(Events.nodes["cursorSizeSlider"].Path).value
 #		brushSize = get_node(BrushSizeSlider).value
-		brushSize = value
+#		brushSize = value
 		$CShape2D.shape.radius = brushSize
 		FuncManager.brushSize = brushSize
 
 func _set_size(_size, _dec, _pickSize):
 	if FuncManager.panelOpen == false:
-		$CShape2D.shape.radius = _size
+		if _size != null:
+			$CShape2D.shape.radius = _size
+			get_node(Events.nodes["cursorSizeSlider"].Path).value = _size
+#			brushSize = _size
+		else:
+			$CShape2D.shape.radius = _pickSize
+			get_node(Events.nodes["cursorSizeSlider"].Path).value = _pickSize
+#			brushSize = _pickSize
 		$Sprite.scale = Vector2(_dec,_dec)
 		$ColorMask.scale = Vector2(_pickSize,_pickSize)
-		get_node(BrushSizeSlider).value = _size
+#		get_node(BrushSizeSlider).value = _size
+		
 		FuncManager._brush_size_Update(_size, _dec, _pickSize)
 
 func colorMaskUpdate(_color):

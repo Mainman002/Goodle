@@ -9,12 +9,13 @@ onready var cursorCenter = get_node("/root/MainMenu/CursorCenter")
 
 func _ready():
 	$Area2D.connect("area_entered", self, "_hovering")
-	color = Color(.5, .5, .5, 1)
+	color = Color(0, 0, 0, 0)
+	Events._initialize_pixels_list(name, get_path(), color)
 
 func _input(event):
 	if FuncManager.panelOpen == false and hovering == true:
 		if Input.is_mouse_button_pressed(1):
-			if FuncManager.selectedTool == "Painter":
+			if FuncManager.selectedTool == "Pencil":
 				color = FuncManager.activeColor
 	
 			elif FuncManager.selectedTool == "Picker":
@@ -24,17 +25,19 @@ func _input(event):
 				color = Color(0,0,0,0)
 
 
-		if Input.is_action_pressed("paint"):
-			if FuncManager.selectedTool == "Painter":
-				color = FuncManager.activeColor
+#		if Input.is_action_pressed("paint"):
+#			if FuncManager.selectedTool == "Painter":
+#				color = FuncManager.activeColor
 
-		if Input.is_action_pressed("colorPick"):
-			if FuncManager.selectedTool == "Picker":
-				FuncManager.picker_Changed(color)
+		elif Input.is_mouse_button_pressed(2):
+#			if FuncManager.selectedTool == "Eraser":
+			color = Color(0,0,0,0)
 
-		if Input.is_action_pressed("erase"):
-			if FuncManager.selectedTool == "Eraser":
-				color = Color(0,0,0,0)
+		elif Input.is_mouse_button_pressed(3):
+#			if FuncManager.selectedTool == "Picker":
+			FuncManager.picker_Changed(color)
+
+
 
 
 	
@@ -67,7 +70,7 @@ func _physics_process(delta):
 
 
 		elif hovering == true:
-			if FuncManager.selectedTool == "Painter" and color != FuncManager.activeColor:
+			if FuncManager.selectedTool == "Pencil" and color != FuncManager.activeColor:
 				if Input.is_action_pressed("paint"):
 					color = FuncManager.activeColor
 		#			print("drawing")

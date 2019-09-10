@@ -4,11 +4,15 @@ export (NodePath) var mainCam
 export (NodePath) var canvasCam
 export (NodePath) var fileDialog
 export (NodePath) var bgColor
+export (NodePath) var transparentBGColor
 export (NodePath) var xWidth
 export (NodePath) var yHeight
 export (NodePath) var CursorSprite
-export (NodePath) var Grid
+#export (NodePath) var Grid
 export (NodePath) var VirtualGrid
+export (NodePath) var TopBar
+export (NodePath) var ToolsBar
+export (NodePath) var SideBar
 
 var filePath = "user://"
 var fileName
@@ -38,6 +42,10 @@ func _FileBroweser():
 
 func _screenTakeImage():
 	get_node(bgColor).visible = false
+	get_node(transparentBGColor).visible = false
+	get_node(TopBar).visible = false
+	get_node(ToolsBar).visible = false
+	get_node(SideBar).visible = false
 	get_node("/root/MainMenu/FilesPanel").visible = false
 	if FuncManager.grid_showing == true:
 #		FuncManager._grid_Update()
@@ -58,6 +66,10 @@ func _screenTakeImage():
 	elif str2var(get_node(yHeight).text) > textureSizeLimitMax:
 		get_node(yHeight).text = str(textureSizeLimitMax)
 	
+#	yield(get_tree(), "idle_frame")
+#	yield(get_tree(), "idle_frame")
+#	yield(get_tree(), "idle_frame")
+	
 	windowMaximized = OS.window_maximized
 	OS.window_maximized = false
 	
@@ -74,16 +86,25 @@ func _screenReset():
 	OS.window_size.x = windowSizeX
 	OS.window_size.y = windowSizeY
 	get_node(bgColor).visible = true
-	get_node("/root/MainMenu/FilesPanel").visible = true
+	get_node(transparentBGColor).visible = true
+	get_node(TopBar).visible = true
+	get_node(ToolsBar).visible = true
+	get_node(SideBar).visible = true
+	get_node("/root/MainMenu/FilesPanel").visible = false
 	if FuncManager.grid_showing == true:
 #		FuncManager._grid_Update()
 		get_node(VirtualGrid).visible = true
 	get_node(CursorSprite).visible = true
 	CursorCenter.visible = true
 	
+	yield(get_tree(), "idle_frame")
+	yield(get_tree(), "idle_frame")
+	yield(get_tree(), "idle_frame")
+	
 	OS.window_maximized = windowMaximized
 	
 	FuncManager.can_draw = true
+	FuncManager.panelOpen = false
 #	get_viewport().render_target_v_flip = false
 
 func _CaptureScreen():
@@ -109,4 +130,8 @@ func _CaptureScreen():
 	
 	tex.get_data().save_png(str(get_node(fileDialog).current_path, ".png"))
 #	print(str($FileDialog.current_path, ".png"))
+
+	yield(get_tree(), "idle_frame")
+	yield(get_tree(), "idle_frame")
+	yield(get_tree(), "idle_frame")
 	_screenReset()
