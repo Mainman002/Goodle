@@ -1,17 +1,23 @@
 extends Node
 
 #export (NodePath) var Cursor
-export (NodePath) var toolLabel
-export (NodePath) var colorPicker
+#export (NodePath) var toolLabel
+#export (NodePath) var colorPicker
 #export (NodePath) var currentColor
 export (NodePath) var selectedColor1
 export (NodePath) var selectedColor2
 export (NodePath) var GridColorSetting
-export (NodePath) var FPSLabel
+#export (NodePath) var FPSLabel
 export (NodePath) var FPSCB
 export (NodePath) var GridCont
-export (NodePath) var VirtualGrid
+#export (NodePath) var VirtualGrid
 export (NodePath) var CursorCenterSnappingBTN
+
+#var _node_Dict = [{"toolLabel":{"path":"null"}}, {"toolLabel2":{"path":"blank"}}]
+#var _node_List = [get_path(), get_path()]
+
+#var glob_toolLabel
+#var glob_colorPicker
 
 var printFPS = false
 
@@ -26,8 +32,8 @@ var col1 = Color(0,0,0,1)
 var col2 = Color(1,1,1,1)
 var eraseColor = Color(0,0,0,0)
 var cursorExactSnapping = false
-var selectedTool = "Painter"
-var activeTool = ["Painter", "Picker", "Eraser", "Color Eraser"]
+var selectedTool = "Pencil"
+var activeTool = ["Pencil", "Picker", "Eraser", "Color Eraser"]
 
 var brushSize = 4
 var brushDecSize = .4
@@ -59,9 +65,10 @@ func picker_Closed():
 	panelOpen = false
 
 func _ready():
-	get_node(colorPicker).connect("pressed", self, "picker_Pressed")
-	get_node(colorPicker).connect("popup_closed", self, "picker_Closed")
-	get_node(colorPicker).connect("color_changed", self, "picker_Changed")
+	yield(get_tree(), "idle_frame")
+	get_node(Events.nodes["CurrentColor"].Path).connect("pressed", self, "picker_Pressed")
+	get_node(Events.nodes["CurrentColor"].Path).connect("popup_closed", self, "picker_Closed")
+	get_node(Events.nodes["CurrentColor"].Path).connect("color_changed", self, "picker_Changed")
 	get_node(GridColorSetting).connect("color_changed", self, "grid_col_changed")
 	get_node(FPSCB).connect("toggled", self, "_FPSToggle")
 #	get_node(currentColor).color = activeColor
@@ -74,6 +81,14 @@ func _ready():
 		var Pobj = pixelObj.instance()
 		Pobj.name = str("P", i)
 		get_node(GridCont).add_child(Pobj)
+	
+#	print(str("toolLabel: ", glob_toolLabel))
+
+#func _update_Var(_varName, _nodePath):
+#	if _varName != null:
+#		pass
+#	if _nodePath != null:
+#		pass
 
 func _input(event):
 	if Input.is_action_just_pressed("PaintTool"):
@@ -90,19 +105,19 @@ func _input(event):
 
 func _process(delta):
 	if printFPS == true:
-		get_node(FPSLabel).text = (str("FPS: ", Engine.get_frames_per_second()))
+		get_node(Events.nodes["FPSLabel"].Path).text = (str("FPS: ", Engine.get_frames_per_second()))
 	
 	if panelOpen == false:
 		if Input.is_action_just_pressed("color_swap"):
 			if activeColor != col2 and selectedColor == 1:
 				activeColor = col2
-				get_node(colorPicker).color = col2
+				get_node(Events.nodes["CurrentColor"].Path).color = col2
 #				get_node(currentColor).color = col2
 				get_node(CursorColorMask).colorMaskUpdate(col2)
 				selectedColor = 2
 			elif activeColor != col1 and selectedColor == 2:
 				activeColor = col1
-				get_node(colorPicker).color = col1
+				get_node(Events.nodes["CurrentColor"].Path).color = col1
 #				get_node(currentColor).color = col1
 				get_node(CursorColorMask).colorMaskUpdate(col1)
 				selectedColor = 1
@@ -123,7 +138,7 @@ func _tool_Update(_tool):
 	if panelOpen == false:
 		if selectedTool != activeTool[_tool]:
 			selectedTool = activeTool[_tool]
-			get_node(toolLabel).text = selectedTool
+			get_node(Events.nodes["ToolLabel"].Path).text = selectedTool
 			
 	#		_brush_size_Update(brushSize, brushDecSize, pickSize)
 			get_node(Cursor)._set_size(brushSize, brushDecSize, pickSize)
@@ -132,9 +147,12 @@ func _tool_Update(_tool):
 
 func _brush_size_Update(_size, _dec, _pickSize):
 	if panelOpen == false:
-		brushSize = _size
-		brushDecSize = _dec
-		pickSize = _pickSize
+		if _size != null:
+			brushSize = _size
+		if _dec != null:
+			brushDecSize = _dec
+		if _pickSize != null:
+			pickSize = _pickSize
 	#	get_node(Cursor)._set_size(_size, _dec, _pickSize)
 
 func picker_Changed(_color):
@@ -148,7 +166,7 @@ func picker_Changed(_color):
 			col2 = _color
 			get_node(selectedColor2).color = _color
 		
-		get_node(colorPicker).color = _color
+		get_node(Events.nodes["CurrentColor"].Path).color = _color
 #		get_node(currentColor).color = _color
 
 #func gridColorChange(_color):
@@ -159,7 +177,7 @@ func _grid_Update():
 		grid_showing = true
 	else:
 		grid_showing = false
-	get_node(VirtualGrid).visible = grid_showing
+	get_node(Events.nodes["VirtualGrid"].Path).visible = grid_showing
 
 func grid_col_changed(color):
 	gridColor = color
@@ -186,10 +204,12 @@ func pixelGrid(_grid_scale, _scale, _column, _amount):
 
 func _FPSToggle(button_pressed):
 	printFPS = button_pressed
-	get_node(FPSLabel).visible = button_pressed
+	get_node(Events.nodes["FPSLabel"].Path).visible = button_pressed
+	get_node(Events.nodes["FPSLabelHSep"].Path).visible = button_pressed
 
 func centerSnapToggle(button_pressed):
 	cursorExactSnapping = button_pressed
+	get_node(Events.nodes["CursorCenter"].Path).visible = button_pressed
 
 
 

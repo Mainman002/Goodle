@@ -66,6 +66,10 @@ func _screenTakeImage():
 	elif str2var(get_node(yHeight).text) > textureSizeLimitMax:
 		get_node(yHeight).text = str(textureSizeLimitMax)
 	
+#	yield(get_tree(), "idle_frame")
+#	yield(get_tree(), "idle_frame")
+#	yield(get_tree(), "idle_frame")
+	
 	windowMaximized = OS.window_maximized
 	OS.window_maximized = false
 	
@@ -86,16 +90,21 @@ func _screenReset():
 	get_node(TopBar).visible = true
 	get_node(ToolsBar).visible = true
 	get_node(SideBar).visible = true
-	get_node("/root/MainMenu/FilesPanel").visible = true
+	get_node("/root/MainMenu/FilesPanel").visible = false
 	if FuncManager.grid_showing == true:
 #		FuncManager._grid_Update()
 		get_node(VirtualGrid).visible = true
 	get_node(CursorSprite).visible = true
 	CursorCenter.visible = true
 	
+	yield(get_tree(), "idle_frame")
+	yield(get_tree(), "idle_frame")
+	yield(get_tree(), "idle_frame")
+	
 	OS.window_maximized = windowMaximized
 	
 	FuncManager.can_draw = true
+	FuncManager.panelOpen = false
 #	get_viewport().render_target_v_flip = false
 
 func _CaptureScreen():
@@ -121,4 +130,8 @@ func _CaptureScreen():
 	
 	tex.get_data().save_png(str(get_node(fileDialog).current_path, ".png"))
 #	print(str($FileDialog.current_path, ".png"))
+
+	yield(get_tree(), "idle_frame")
+	yield(get_tree(), "idle_frame")
+	yield(get_tree(), "idle_frame")
 	_screenReset()
