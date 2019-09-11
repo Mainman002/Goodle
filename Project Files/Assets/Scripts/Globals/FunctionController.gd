@@ -34,6 +34,7 @@ var eraseColor = Color(0,0,0,0)
 var cursorExactSnapping = false
 var selectedTool = "Pencil"
 var activeTool = ["Pencil", "Picker", "Eraser", "Color Eraser"]
+var canUndo = false
 
 var brushSize = 4
 var brushDecSize = .4
@@ -43,10 +44,10 @@ var gridColor = Color(0,.7,1,1)
 
 ### 8x8 | 16x16 | 32x32 px grid ###
 var _GridCursorSnappOffset = 0
-var _GridScales = [16, 8, 4]
-var _GridColumns = [8, 16, 32]
-var _GridTotals = [64, 256, 1024]
-var _CellSizes = [32, 16, 8]
+var _GridScales = [16, 8, 4]      ### 16,    8,     4 ##
+var _GridColumns = [8, 16, 32]    ###  8,   16,    32 ##
+var _GridTotals = [64, 256, 1024]  ### 64,  256,  1024 ##
+var _CellSizes = [32, 16, 8]      ### 32,   16,     8 ##
 
 onready var GridScale = _GridScales[0]
 onready var GridColumns = _GridColumns[0]
@@ -69,8 +70,10 @@ func _ready():
 	get_node(Events.nodes["CurrentColor"].Path).connect("pressed", self, "picker_Pressed")
 	get_node(Events.nodes["CurrentColor"].Path).connect("popup_closed", self, "picker_Closed")
 	get_node(Events.nodes["CurrentColor"].Path).connect("color_changed", self, "picker_Changed")
+#	get_node(Events.nodes["UndoStepListBTN"].Path).connect("pressed", self, "hystory_Pressed")
 	get_node(GridColorSetting).connect("color_changed", self, "grid_col_changed")
 	get_node(FPSCB).connect("toggled", self, "_FPSToggle")
+	get_node(Events.nodes["undoToggleCB"].Path).connect("toggled", self, "undoStepToggle")
 #	get_node(currentColor).color = activeColor
 	get_node(GridColorSetting).color = gridColor
 	get_node(GridCont).rect_scale = Vector2(GridScale, GridScale)
@@ -211,8 +214,10 @@ func centerSnapToggle(button_pressed):
 	cursorExactSnapping = button_pressed
 	get_node(Events.nodes["CursorCenter"].Path).visible = button_pressed
 
-
-
+func undoStepToggle(button_pressed):
+	canUndo = button_pressed
+	get_node(Events.nodes["UndoStepListHSep"].Path).visible = button_pressed
+	get_node(Events.nodes["UndoStepListBTN"].Path).visible = button_pressed
 
 
 

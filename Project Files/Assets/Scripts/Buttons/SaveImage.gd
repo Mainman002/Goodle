@@ -51,7 +51,8 @@ func _screenTakeImage():
 #		FuncManager._grid_Update()
 		get_node(VirtualGrid).visible = false
 	get_node(CursorSprite).visible = false
-	CursorCenter.visible = false
+	if FuncManager.cursorExactSnapping == true:
+		CursorCenter.visible = false
 	
 #	windowSizeX = OS.window_size.x
 #	windowSizeY = OS.window_size.y
@@ -95,7 +96,8 @@ func _screenReset():
 #		FuncManager._grid_Update()
 		get_node(VirtualGrid).visible = true
 	get_node(CursorSprite).visible = true
-	CursorCenter.visible = true
+	if FuncManager.cursorExactSnapping == true:
+		CursorCenter.visible = true
 	
 	yield(get_tree(), "idle_frame")
 	yield(get_tree(), "idle_frame")
