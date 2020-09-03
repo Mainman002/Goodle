@@ -1,5 +1,5 @@
 # Goodle
-Godot pixel painting app for Windows, Mac, and Linux
+Godot_3.2.2 pixel painting app for Windows, Mac, and Linux
 
 You'll need Godot 3.1.1-Stable to run this project, or you can download the exported App Images in the Releases section here -> https://github.com/Mainman002/Goodle/releases
 
