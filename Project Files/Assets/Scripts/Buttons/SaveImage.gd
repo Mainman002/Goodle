@@ -1,6 +1,7 @@
 extends Button
 
 export (NodePath) var mainCam
+#export (NodePath) var MainVB
 export (NodePath) var canvasCam
 export (NodePath) var fileDialog
 export (NodePath) var bgColor
@@ -32,8 +33,8 @@ onready var CursorCenter = get_node("/root/MainMenu/CursorCenter")
 func _ready():
 	connect("pressed", self, "_FileBroweser")
 	get_node(fileDialog).connect("confirmed", self, "_CaptureScreen")
-	windowSizeX = OS.window_size.x
-	windowSizeY = OS.window_size.y
+	windowSizeX = get_viewport_rect().size.x
+	windowSizeY = get_viewport_rect().size.y
 	windowMaximized = OS.window_maximized
 
 func _FileBroweser():
@@ -41,6 +42,9 @@ func _FileBroweser():
 	get_node(fileDialog).visible = true
 
 func _screenTakeImage():
+	
+	$"/root/Global".isExporting = true
+	
 	get_node(bgColor).visible = false
 	get_node(transparentBGColor).visible = false
 	get_node(TopBar).visible = false
@@ -53,28 +57,16 @@ func _screenTakeImage():
 	get_node(CursorSprite).visible = false
 	CursorCenter.visible = false
 	
-#	windowSizeX = OS.window_size.x
-#	windowSizeY = OS.window_size.y
-	
-	if str2var(get_node(xWidth).text) < textureSizeLimitMin:
-		get_node(xWidth).text = str(textureSizeLimitMin)
-	elif str2var(get_node(xWidth).text) > textureSizeLimitMax:
-		get_node(xWidth).text = str(textureSizeLimitMax)
-		
-	if str2var(get_node(yHeight).text) < textureSizeLimitMin:
-		get_node(yHeight).text = str(textureSizeLimitMin)
-	elif str2var(get_node(yHeight).text) > textureSizeLimitMax:
-		get_node(yHeight).text = str(textureSizeLimitMax)
-	
-#	yield(get_tree(), "idle_frame")
-#	yield(get_tree(), "idle_frame")
-#	yield(get_tree(), "idle_frame")
-	
 	windowMaximized = OS.window_maximized
 	OS.window_maximized = false
 	
-	OS.window_size.x = str2var(get_node(xWidth).text)
-	OS.window_size.y = str2var(get_node(yHeight).text)
+	$"/root/Global".export_window_size = Vector2(
+		str2var(get_node(xWidth).text), 
+		str2var(get_node(xWidth).text)
+		)
+	
+	OS.window_borderless = true
+	OS.set_window_size($"/root/Global".export_window_size)
 	
 	get_node(canvasCam).current = true
 	get_viewport().set_clear_mode(Viewport.CLEAR_MODE_ONLY_NEXT_FRAME)
@@ -107,7 +99,18 @@ func _screenReset():
 	FuncManager.panelOpen = false
 #	get_viewport().render_target_v_flip = false
 
+	OS.window_borderless = false
+	$"/root/Global".isExporting = false
+
 func _CaptureScreen():
+	
+	windowSizeX = get_viewport_rect().size.x
+	windowSizeY = get_viewport_rect().size.y
+	
+	yield(get_tree(), "idle_frame")
+	yield(get_tree(), "idle_frame")
+	yield(get_tree(), "idle_frame")
+	
 	_screenTakeImage()
 	
 	# Let two frames pass to make sure the screen was captured

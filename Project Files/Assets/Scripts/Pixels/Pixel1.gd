@@ -11,6 +11,7 @@ func _ready():
 	$Area2D.connect("area_entered", self, "_hovering")
 	color = Color(0, 0, 0, 0)
 	Events._initialize_pixels_list(name, get_path(), color)
+	set_physics_process(false)
 
 func _input(event):
 	if FuncManager.panelOpen == false and hovering == true:

@@ -111,12 +111,14 @@ func PixelEntered(area):
 	if FuncManager.can_draw == true:
 		if area.is_in_group("Pixel"):
 			area.get_parent().hovering = true
+			area.get_parent().set_physics_process(true)
 #			if FuncManager.cursorExactSnapping == true:
 #				get_node("root/MainMenu/CursorCenter").global_position = Vector2(area.rect_global_position.x+FuncManager._GridScales[FuncManager._GridCursorSnappOffset], area.rect_global_position.y+FuncManager._GridScales[FuncManager._GridCursorSnappOffset])
 
 func PixelExited(area):
 	if area.is_in_group("Pixel"):
 		area.get_parent().hovering = false
+		area.get_parent().set_physics_process(false)
 
 #func _draw():
 #	for x in range(0,CursorCenter.global_position.x, 4):
