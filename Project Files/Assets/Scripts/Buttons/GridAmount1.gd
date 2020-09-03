@@ -5,6 +5,7 @@ var PixSize = 2
 onready var  FuncManager = get_node("/root/MainMenu/FunctionController")
 
 func _ready():
+# warning-ignore:return_value_discarded
 	connect("pressed", self, "_pressed")
 
 func _pressed():

@@ -7,6 +7,7 @@ export (int) var colNum = 1
 onready var  FuncManager = get_node("/root/MainMenu/FunctionController")
 
 func _ready():
+# warning-ignore:return_value_discarded
 	$TB.connect("pressed", self, "_colorSwap")
 
 func _colorSwap():

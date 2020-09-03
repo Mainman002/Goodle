@@ -66,21 +66,29 @@ func picker_Closed():
 
 func _ready():
 	yield(get_tree(), "idle_frame")
+# warning-ignore:return_value_discarded
 	get_node(Events.nodes["CurrentColor"].Path).connect("pressed", self, "picker_Pressed")
+# warning-ignore:return_value_discarded
 	get_node(Events.nodes["CurrentColor"].Path).connect("popup_closed", self, "picker_Closed")
+# warning-ignore:return_value_discarded
 	get_node(Events.nodes["CurrentColor"].Path).connect("color_changed", self, "picker_Changed")
+# warning-ignore:return_value_discarded
 	get_node(GridColorSetting).connect("color_changed", self, "grid_col_changed")
+# warning-ignore:return_value_discarded
 	get_node(FPSCB).connect("toggled", self, "_FPSToggle")
 #	get_node(currentColor).color = activeColor
 	get_node(GridColorSetting).color = gridColor
 	get_node(GridCont).rect_scale = Vector2(GridScale, GridScale)
 	get_node(GridCont).columns = GridColumns
+# warning-ignore:return_value_discarded
 	get_node(CursorCenterSnappingBTN).connect("toggled", self, "centerSnapToggle")
 	
 	for i in GridTotal:
 		var Pobj = pixelObj.instance()
 		Pobj.name = str("P", i)
 		get_node(GridCont).add_child(Pobj)
+		
+	_grid_Update()
 	
 #	print(str("toolLabel: ", glob_toolLabel))
 
@@ -90,7 +98,7 @@ func _ready():
 #	if _nodePath != null:
 #		pass
 
-func _input(event):
+func _input(_event):
 	if Input.is_action_just_pressed("PaintTool"):
 		_tool_Update(0)
 	if Input.is_action_just_pressed("EraseTool"):
@@ -103,7 +111,7 @@ func _input(event):
 #	if Input.is_action_just_pressed("grid_toggle"):
 #		_grid_Update()
 
-func _process(delta):
+func _process(_delta):
 	if printFPS == true:
 		get_node(Events.nodes["FPSLabel"].Path).text = (str("FPS: ", Engine.get_frames_per_second()))
 	

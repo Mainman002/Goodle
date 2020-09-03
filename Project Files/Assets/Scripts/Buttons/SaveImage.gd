@@ -31,7 +31,9 @@ onready var  FuncManager = get_node("/root/MainMenu/FunctionController")
 onready var CursorCenter = get_node("/root/MainMenu/CursorCenter")
 
 func _ready():
+# warning-ignore:return_value_discarded
 	connect("pressed", self, "_FileBroweser")
+# warning-ignore:return_value_discarded
 	get_node(fileDialog).connect("confirmed", self, "_CaptureScreen")
 	windowSizeX = get_viewport_rect().size.x
 	windowSizeY = get_viewport_rect().size.y

@@ -20,10 +20,15 @@ onready var  CursorCenter = get_node("/root/MainMenu/CursorCenter")
 
 func _ready():
 #	print(grid_size)
+# warning-ignore:return_value_discarded
 	get_node("../CursorCenter").connect("area_entered", self, "CanvasEntered")
+# warning-ignore:return_value_discarded
 	get_node("../CursorCenter").connect("area_exited", self, "CanvasExited")
+# warning-ignore:return_value_discarded
 	connect("area_entered", self, "PixelEntered")
+# warning-ignore:return_value_discarded
 	connect("area_exited", self, "PixelExited")
+# warning-ignore:return_value_discarded
 	get_node(Events.nodes["cursorSizeSlider"].Path).connect("value_changed", self, "_toolChanged")
 #	get_node(BrushSizeSlider).connect("value_changed", self, "_toolChanged")
 	get_node(ColorPickerNode).color = FuncManager.activeColor
@@ -59,7 +64,7 @@ func _input(event):
 			elif FuncManager.selectedTool == "Painter" or FuncManager.selectedTool == "Eraser":
 				_set_size(brushSize, brushSize/4, brushSize/4)
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	if grid_Snap == false:
 		if FuncManager.panelOpen == false:
 			if global_position != get_global_mouse_position():
@@ -67,7 +72,7 @@ func _physics_process(delta):
 					if FuncManager.cursorExactSnapping == false:
 						CursorCenter.global_position = global_position
 
-func _toolChanged(value):
+func _toolChanged(_value):
 	if FuncManager.panelOpen == false:
 #		get_node(BrushSizeLabel).text = str(value)
 		if not Input.is_action_pressed("colorPick") and not FuncManager.selectedTool == "Picker" and not FuncManager.selectedTool == "Color Eraser":

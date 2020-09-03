@@ -5,7 +5,7 @@ onready var  FuncManager = get_node("/root/MainMenu/FunctionController")
 func _ready():
 	Events._initialize_nodes_list(name, get_path())
 
-func _process(delta):
+func _process(_delta):
 	if FuncManager.grid_showing == true:
 		update()
 

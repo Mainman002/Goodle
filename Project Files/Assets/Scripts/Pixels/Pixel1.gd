@@ -8,12 +8,13 @@ onready var  FuncManager = get_node("/root/MainMenu/FunctionController")
 onready var cursorCenter = get_node("/root/MainMenu/CursorCenter")
 
 func _ready():
+# warning-ignore:return_value_discarded
 	$Area2D.connect("area_entered", self, "_hovering")
 	color = Color(0, 0, 0, 0)
 	Events._initialize_pixels_list(name, get_path(), color)
 	set_physics_process(false)
 
-func _input(event):
+func _input(_event):
 	if FuncManager.panelOpen == false and hovering == true:
 		if Input.is_mouse_button_pressed(1):
 			if FuncManager.selectedTool == "Pencil":
@@ -48,7 +49,7 @@ func _input(event):
 #				if color == FuncManager.eraseColor:
 #					color = Color(0,0,0,0)
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	if FuncManager.panelOpen == false:
 		if FuncManager.selectedTool == "Color Eraser":
 			if Input.is_mouse_button_pressed(1):
