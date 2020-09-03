@@ -110,11 +110,11 @@ margin_bottom = 20.0
 rect_min_size = Vector2( 14.11, 20 )
 
 [node name="TopBarVB1" type="GridContainer" parent="MainVB/TopBar"]
-margin_right = 244.0
-margin_bottom = 19.0
-size_flags_horizontal = 0
-size_flags_vertical = 4
-columns = 4
+margin_right = 512.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+size_flags_vertical = 5
+columns = 5
 
 [node name="b1" type="Button" parent="MainVB/TopBar/TopBarVB1"]
 margin_right = 44.0
@@ -150,9 +150,21 @@ text = "Layout"
 script = ExtResource( 3 )
 PanelNode = "LayoutPanel"
 
-[node name="b3" type="Button" parent="MainVB/TopBar/TopBarVB1"]
+[node name="b5" type="Button" parent="MainVB/TopBar/TopBarVB1"]
 margin_left = 192.0
-margin_right = 244.0
+margin_right = 236.0
+margin_bottom = 19.0
+focus_mode = 0
+custom_fonts/font = ExtResource( 2 )
+action_mode = 0
+enabled_focus_mode = 0
+text = "Keys"
+script = ExtResource( 3 )
+PanelNode = "KeyboardPanel"
+
+[node name="b3" type="Button" parent="MainVB/TopBar/TopBarVB1"]
+margin_left = 240.0
+margin_right = 292.0
 margin_bottom = 19.0
 focus_mode = 0
 custom_fonts/font = ExtResource( 2 )
@@ -860,6 +872,7 @@ margin_left = -1.0
 margin_top = -1.0
 margin_right = 346.0
 margin_bottom = 399.0
+rect_scale = Vector2( 1.5, 1.5 )
 script = ExtResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -1029,6 +1042,7 @@ margin_left = -1.0
 margin_top = -1.0
 margin_right = 347.0
 margin_bottom = 398.0
+rect_scale = Vector2( 1.5, 1.5 )
 script = ExtResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -1348,6 +1362,7 @@ margin_left = -1.0
 margin_top = -1.0
 margin_right = 347.0
 margin_bottom = 398.0
+rect_scale = Vector2( 1.5, 1.5 )
 script = ExtResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -1513,6 +1528,174 @@ rect_min_size = Vector2( 0, 10 )
 size_flags_horizontal = 3
 
 [node name="Close" type="Button" parent="LayoutPanel/LayoutVB"]
+margin_top = 366.0
+margin_right = 334.0
+margin_bottom = 385.0
+custom_fonts/font = ExtResource( 2 )
+text = "Close"
+script = ExtResource( 28 )
+
+[node name="KeyboardPanel" type="PanelContainer" parent="."]
+visible = false
+margin_left = -1.0
+margin_top = -1.0
+margin_right = 347.0
+margin_bottom = 398.0
+rect_scale = Vector2( 1.5, 1.5 )
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LayoutVB" type="VBoxContainer" parent="KeyboardPanel"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 341.0
+margin_bottom = 392.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="HeaderVB" type="VBoxContainer" parent="KeyboardPanel/LayoutVB"]
+margin_right = 334.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 20, 20 )
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="KeyboardPanel/LayoutVB/HeaderVB"]
+margin_right = 334.0
+margin_bottom = 13.0
+custom_fonts/font = ExtResource( 2 )
+text = "Keyboard Menu"
+align = 1
+valign = 1
+
+[node name="HSeparator" type="HSeparator" parent="KeyboardPanel/LayoutVB"]
+margin_top = 24.0
+margin_right = 334.0
+margin_bottom = 34.0
+rect_min_size = Vector2( 0, 10 )
+size_flags_horizontal = 3
+
+[node name="LayoutSC" type="ScrollContainer" parent="KeyboardPanel/LayoutVB"]
+margin_top = 38.0
+margin_right = 334.0
+margin_bottom = 348.0
+rect_min_size = Vector2( 64, 64 )
+mouse_filter = 2
+size_flags_horizontal = 5
+size_flags_vertical = 3
+scroll_horizontal_enabled = false
+
+[node name="LayoutVB" type="VBoxContainer" parent="KeyboardPanel/LayoutVB/LayoutSC"]
+margin_right = 334.0
+margin_bottom = 310.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 10
+
+[node name="Tool Keys" type="VBoxContainer" parent="KeyboardPanel/LayoutVB/LayoutSC/LayoutVB"]
+margin_right = 334.0
+margin_bottom = 27.0
+
+[node name="Label" type="Label" parent="KeyboardPanel/LayoutVB/LayoutSC/LayoutVB/Tool Keys"]
+margin_right = 334.0
+margin_bottom = 13.0
+custom_fonts/font = ExtResource( 2 )
+text = "Tool Keys"
+align = 1
+
+[node name="HSeparator" type="HSeparator" parent="KeyboardPanel/LayoutVB/LayoutSC/LayoutVB/Tool Keys"]
+margin_top = 17.0
+margin_right = 334.0
+margin_bottom = 27.0
+rect_min_size = Vector2( 0, 10 )
+size_flags_horizontal = 3
+
+[node name="InfoPanelToggle" type="HBoxContainer" parent="KeyboardPanel/LayoutVB/LayoutSC/LayoutVB"]
+visible = false
+margin_top = 37.0
+margin_right = 334.0
+margin_bottom = 61.0
+size_flags_horizontal = 3
+custom_constants/separation = 10
+
+[node name="Label" type="Label" parent="KeyboardPanel/LayoutVB/LayoutSC/LayoutVB/InfoPanelToggle"]
+margin_top = 5.0
+margin_right = 40.0
+margin_bottom = 18.0
+custom_fonts/font = ExtResource( 2 )
+text = "Info:"
+
+[node name="InfoPanelBtn" type="CheckBox" parent="KeyboardPanel/LayoutVB/LayoutSC/LayoutVB/InfoPanelToggle"]
+margin_left = 50.0
+margin_right = 74.0
+margin_bottom = 24.0
+custom_fonts/font = ExtResource( 2 )
+script = ExtResource( 34 )
+node_toggle = [ NodePath("../../../../../../MainVB/MainHB/Side2/Side2Header") ]
+
+[node name="BrushKey" type="Label" parent="KeyboardPanel/LayoutVB/LayoutSC/LayoutVB"]
+margin_top = 37.0
+margin_right = 334.0
+margin_bottom = 50.0
+custom_fonts/font = ExtResource( 2 )
+text = "Brush: \"B\" or \"1\" Keys"
+
+[node name="EraserKey" type="Label" parent="KeyboardPanel/LayoutVB/LayoutSC/LayoutVB"]
+margin_top = 60.0
+margin_right = 334.0
+margin_bottom = 73.0
+custom_fonts/font = ExtResource( 2 )
+text = "Eraser: \"E\" \"2\" Keys"
+
+[node name="ColorPickerKey" type="Label" parent="KeyboardPanel/LayoutVB/LayoutSC/LayoutVB"]
+margin_top = 83.0
+margin_right = 334.0
+margin_bottom = 96.0
+custom_fonts/font = ExtResource( 2 )
+text = "Color Picker: \"C\" or \"3\" Keys"
+
+[node name="ColorFillKey" type="Label" parent="KeyboardPanel/LayoutVB/LayoutSC/LayoutVB"]
+margin_top = 106.0
+margin_right = 334.0
+margin_bottom = 119.0
+custom_fonts/font = ExtResource( 2 )
+text = "Color Fill: \"F\" or \"4\" Keys"
+
+[node name="Helper Keys" type="VBoxContainer" parent="KeyboardPanel/LayoutVB/LayoutSC/LayoutVB"]
+margin_top = 129.0
+margin_right = 334.0
+margin_bottom = 156.0
+
+[node name="Label" type="Label" parent="KeyboardPanel/LayoutVB/LayoutSC/LayoutVB/Helper Keys"]
+margin_right = 334.0
+margin_bottom = 13.0
+custom_fonts/font = ExtResource( 2 )
+text = "Helper Keys"
+align = 1
+
+[node name="HSeparator" type="HSeparator" parent="KeyboardPanel/LayoutVB/LayoutSC/LayoutVB/Helper Keys"]
+margin_top = 17.0
+margin_right = 334.0
+margin_bottom = 27.0
+rect_min_size = Vector2( 0, 10 )
+size_flags_horizontal = 3
+
+[node name="ToggleGridKey" type="Label" parent="KeyboardPanel/LayoutVB/LayoutSC/LayoutVB"]
+margin_top = 166.0
+margin_right = 334.0
+margin_bottom = 179.0
+custom_fonts/font = ExtResource( 2 )
+text = "Grid Toggle: \"G\" Key"
+
+[node name="HSeparator2" type="HSeparator" parent="KeyboardPanel/LayoutVB"]
+margin_top = 352.0
+margin_right = 334.0
+margin_bottom = 362.0
+rect_min_size = Vector2( 0, 10 )
+size_flags_horizontal = 3
+
+[node name="Close" type="Button" parent="KeyboardPanel/LayoutVB"]
 margin_top = 366.0
 margin_right = 334.0
 margin_bottom = 385.0
