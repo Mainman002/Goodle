@@ -723,6 +723,7 @@ script = ExtResource( 21 )
 show_behind_parent = true
 position = Vector2( 10, 10 )
 shape = SubResource( 8 )
+shape_centered = false
 
 [node name="transparentBG" type="TextureRect" parent="MainVB/MainHB/Side2/RightSide/RightSideVS/ToolsPanel/GridContainer/C1"]
 show_behind_parent = true
@@ -730,6 +731,9 @@ margin_right = 20.0
 margin_bottom = 20.0
 texture = ExtResource( 16 )
 stretch_mode = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="C2" type="ColorRect" parent="MainVB/MainHB/Side2/RightSide/RightSideVS/ToolsPanel/GridContainer"]
 margin_left = 48.0
@@ -744,6 +748,7 @@ colNum = 2
 show_behind_parent = true
 position = Vector2( 10, 10 )
 shape = SubResource( 8 )
+shape_centered = false
 
 [node name="transparentBG" type="TextureRect" parent="MainVB/MainHB/Side2/RightSide/RightSideVS/ToolsPanel/GridContainer/C2"]
 show_behind_parent = true
@@ -751,6 +756,9 @@ margin_right = 20.0
 margin_bottom = 20.0
 texture = ExtResource( 16 )
 stretch_mode = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="GridAmount" type="Button" parent="MainVB/MainHB/Side2/RightSide/RightSideVS/ToolsPanel/GridContainer"]
 margin_top = 24.0
