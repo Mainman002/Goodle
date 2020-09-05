@@ -1,5 +1,9 @@
 extends Node
 
+export (PackedScene) var pixel_node
+export (int) var res = 8
+export (NodePath) var grid_container
+
 #export (NodePath) var Cursor
 #export (NodePath) var toolLabel
 #export (NodePath) var colorPicker
@@ -53,6 +57,8 @@ onready var GridColumns = _GridColumns[0]
 onready var GridTotal = _GridTotals[0]
 onready var cell_size = _CellSizes[0]
 
+onready var amount = res*res
+
 var coord = Vector2(0,0)
 onready var grid_size = Vector2(256, 256)
 
@@ -83,11 +89,14 @@ func _ready():
 # warning-ignore:return_value_discarded
 	get_node(CursorCenterSnappingBTN).connect("toggled", self, "centerSnapToggle")
 	
-	for i in GridTotal:
-		var Pobj = pixelObj.instance()
-		Pobj.name = str("P", i)
-		get_node(GridCont).add_child(Pobj)
-		
+#	for i in GridTotal:
+#		var Pobj = pixelObj.instance()
+#		Pobj.name = str("P", i)
+#		get_node(GridCont).add_child(Pobj)
+
+#	print(str("new: ", res*res))
+	_spawn(res, res*res, 0)
+	
 	_grid_Update()
 	
 #	print(str("toolLabel: ", glob_toolLabel))
@@ -190,25 +199,27 @@ func _grid_Update():
 func grid_col_changed(color):
 	gridColor = color
 
-func pixelGrid(_grid_scale, _scale, _column, _amount):
-	
-	GridScale = _GridScales[_scale]
-	GridColumns = _GridColumns[_column]
-	GridTotal = _GridTotals[_amount]
-	cell_size = _CellSizes[_grid_scale]
-	
-	cell_size = _CellSizes[_grid_scale]
-	
-	get_node(GridCont).rect_scale = Vector2(_GridScales[_scale], _GridScales[_scale])
-	get_node(GridCont).columns = _GridColumns[_column]
-	
-	for i in get_node(GridCont).get_children():
-		i.queue_free()
-	
-	for i in GridTotal:
-		var Pobj = pixelObj.instance()
-		Pobj.name = str("P", i)
-		get_node(GridCont).add_child(Pobj)
+#func pixelGrid(_grid_scale, _scale, _column, _amount):
+#
+#	GridScale = _GridScales[_scale]
+#	GridColumns = _GridColumns[_column]
+#	GridTotal = _GridTotals[_amount]
+#	cell_size = _CellSizes[_grid_scale]
+#
+#	cell_size = _CellSizes[_grid_scale]
+#
+#	get_node(GridCont).rect_scale = Vector2(_GridScales[_scale], _GridScales[_scale])
+#	get_node(GridCont).columns = _GridColumns[_column]
+#
+##	for i in get_node(GridCont).get_children():
+##		i.queue_free()
+##
+##	for i in GridTotal:
+##		var Pobj = pixelObj.instance()
+##		Pobj.name = str("P", i)
+##		get_node(GridCont).add_child(Pobj)
+#
+#	_spawn(_column, _amount)
 
 func _FPSToggle(button_pressed):
 	printFPS = button_pressed
@@ -220,6 +231,28 @@ func centerSnapToggle(button_pressed):
 	get_node(Events.nodes["CursorCenter"].Path).visible = button_pressed
 
 
+
+
+
+func _spawn(_col, _am, _scale):
+
+	cell_size = _CellSizes[_scale]
+
+	get_node(GridCont).rect_scale = Vector2(_GridScales[_scale], _GridScales[_scale])
+	get_node(GridCont).columns = _col
+	
+	if get_node(GridCont).get_child_count() > _GridScales[_scale]:
+		_free()
+	
+	for i in range(_am):
+		var pixel = pixel_node.instance()
+		get_node(GridCont).add_child(pixel)
+		pixel.name = str("Pix_", i)
+
+func _free():
+#	print(get_node(GridCont).get_child_count())
+	for i in range(get_node(GridCont).get_child_count()):
+		get_node(GridCont).get_child(i).queue_free()
 
 
 

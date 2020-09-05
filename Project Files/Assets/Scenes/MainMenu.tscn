@@ -1,4 +1,4 @@
-[gd_scene load_steps=50 format=2]
+[gd_scene load_steps=52 format=2]
 
 [ext_resource path="res://Assets/Scripts/Globals/FunctionController.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Fonts/joystix/Joysticks_DynamicFont1.tres" type="DynamicFont" id=2]
@@ -34,6 +34,8 @@
 [ext_resource path="res://Assets/Scripts/Buttons/FullscreenBTN.gd" type="Script" id=32]
 [ext_resource path="res://Assets/Scripts/Buttons/BorderlessBTN.gd" type="Script" id=33]
 [ext_resource path="res://Assets/Scripts/Buttons/ToggleNodeVisibilityBtn.gd" type="Script" id=34]
+[ext_resource path="res://Assets/Instances/Pixels/P1.tscn" type="PackedScene" id=35]
+[ext_resource path="res://Assets/Scripts/Buttons/MultiThreadingCB.gd" type="Script" id=36]
 
 [sub_resource type="StyleBoxFlat" id=1]
 
@@ -72,6 +74,8 @@ radius = 5.0
 
 [node name="FunctionController" type="Node" parent="."]
 script = ExtResource( 1 )
+pixel_node = ExtResource( 35 )
+grid_container = NodePath("../MainVB/MainHB/Canvas/CanvasVB/CanvasOrigin/GC")
 selectedColor1 = NodePath("../MainVB/MainHB/Side2/ToolsPanel/GridContainer/C1")
 selectedColor2 = NodePath("../MainVB/MainHB/Side2/ToolsPanel/GridContainer/C2")
 GridColorSetting = NodePath("../SettingsPanel/SettingsVB/SettingsSC/SettingsVB/GridSettings/ColorPickerBtn")
@@ -94,7 +98,9 @@ zoom = Vector2( 1, 1.08 )
 [node name="MainVB" type="VBoxContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-rect_min_size = Vector2( 512, 322 )
+margin_right = 512.0
+margin_bottom = 322.0
+rect_min_size = Vector2( 512, 300 )
 rect_scale = Vector2( 2, 2 )
 size_flags_horizontal = 5
 size_flags_vertical = 5
@@ -178,7 +184,7 @@ PanelNode = "AboutPanel"
 margin_top = 22.0
 margin_right = 512.0
 margin_bottom = 322.0
-rect_min_size = Vector2( 512, 300 )
+rect_min_size = Vector2( 512, 200 )
 size_flags_horizontal = 0
 size_flags_vertical = 0
 custom_constants/separation = 2
@@ -330,6 +336,9 @@ rect_scale = Vector2( 8, 8 )
 custom_constants/vseparation = 0
 custom_constants/hseparation = 0
 columns = 4
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="VirtualGrid" type="TextureRect" parent="MainVB/MainHB/Canvas/CanvasVB/CanvasOrigin"]
 visible = false
@@ -343,7 +352,7 @@ script = ExtResource( 19 )
 
 [node name="CanvasCam" type="Camera2D" parent="MainVB/MainHB/Canvas/CanvasVB/CanvasOrigin"]
 anchor_mode = 0
-zoom = Vector2( 0.5, 0.85 )
+zoom = Vector2( 0.5, 0.5 )
 
 [node name="CanvasArea" type="Area2D" parent="MainVB/MainHB/Canvas/CanvasVB/CanvasOrigin" groups=[
 "CanvasArea",
@@ -1132,6 +1141,28 @@ margin_right = 122.0
 margin_bottom = 24.0
 custom_fonts/font = ExtResource( 2 )
 
+[node name="MultiThreading" type="HBoxContainer" parent="SettingsPanel/SettingsVB/SettingsSC/SettingsVB"]
+visible = false
+margin_top = 71.0
+margin_right = 334.0
+margin_bottom = 95.0
+size_flags_horizontal = 3
+custom_constants/separation = 10
+
+[node name="Label" type="Label" parent="SettingsPanel/SettingsVB/SettingsSC/SettingsVB/MultiThreading"]
+margin_top = 5.0
+margin_right = 136.0
+margin_bottom = 18.0
+custom_fonts/font = ExtResource( 2 )
+text = "Multi-Threading: "
+
+[node name="MultiThreadingCB" type="CheckBox" parent="SettingsPanel/SettingsVB/SettingsSC/SettingsVB/MultiThreading"]
+margin_left = 146.0
+margin_right = 170.0
+margin_bottom = 24.0
+custom_fonts/font = ExtResource( 2 )
+script = ExtResource( 36 )
+
 [node name="FullscreenToggle" type="HBoxContainer" parent="SettingsPanel/SettingsVB/SettingsSC/SettingsVB"]
 margin_top = 71.0
 margin_right = 334.0
@@ -1336,8 +1367,10 @@ margin_bottom = 342.0
 
 [node name="ColorPicker" type="ColorPicker" parent="SettingsPanel/SettingsVB/SettingsSC/SettingsVB/ColoPickerVB"]
 visible = false
-margin_right = 322.0
-margin_bottom = 462.0
+margin_left = 12.0
+margin_top = 12.0
+margin_right = 334.0
+margin_bottom = 474.0
 size_flags_horizontal = 5
 size_flags_vertical = 5
 

@@ -97,6 +97,8 @@ func _screenReset():
 	
 	OS.window_maximized = windowMaximized
 	
+#	OS.window_fullscreen = false
+	
 	FuncManager.can_draw = true
 	FuncManager.panelOpen = false
 #	get_viewport().render_target_v_flip = false
@@ -105,6 +107,8 @@ func _screenReset():
 	$"/root/Global".isExporting = false
 
 func _CaptureScreen():
+	
+	OS.window_fullscreen = false
 	
 	windowSizeX = get_viewport_rect().size.x
 	windowSizeY = get_viewport_rect().size.y
